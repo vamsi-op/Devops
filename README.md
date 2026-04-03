@@ -113,30 +113,6 @@ End-to-end flow:
 5. Ansible rebuilds/redeploys the container.
 6. Updated app is available at http://127.0.0.1:5000
 
-## 6) Make It Ready to Push to GitHub
-
-From project root:
-
-```powershell
-git init
-git add .
-git commit -m "Initial commit: Student Feedback System with CI/CD"
-git branch -M main
-git remote add origin https://github.com/<your-username>/student-feedback-system.git
-git push -u origin main
-```
-
-## Optional: Jenkins Calls Ansible
-
-If you want Jenkins to run Ansible as part of deploy, add this stage in Jenkinsfile:
-
-```groovy
-stage('Deploy with Ansible') {
-    steps {
-        sh 'ansible-playbook -i ansible/inventory ansible/deploy.yml'
-    }
-}
-```
 
 ## Notes
 
