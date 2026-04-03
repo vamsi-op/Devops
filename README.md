@@ -1,6 +1,6 @@
-# Student Feedback System with Local CI/CD Pipeline
+# Student Feedback System with CI/CD Pipeline
 
-This project is a complete beginner-friendly full-stack + DevOps example that runs fully on a local machine.
+This project is a complete beginner-friendly full-stack + DevOps example designed for pipeline-based delivery.
 
 ## Project Goal
 
@@ -37,7 +37,7 @@ student-feedback-system/
 
 ## Prerequisites
 
-Install these tools locally:
+Install these tools:
 
 - Git
 - Python 3.11+
@@ -45,7 +45,7 @@ Install these tools locally:
 - Jenkins
 - Ansible (can be from WSL/Linux)
 
-## 1) Run App Locally (Without Docker)
+## 1) Run App (Without Docker)
 
 From project root:
 
@@ -57,7 +57,7 @@ pip install -r app/requirements.txt
 python app/app.py
 ```
 
-Open: http://localhost:5000
+Open: http://127.0.0.1:5000
 
 ## 2) Run App with Docker
 
@@ -68,7 +68,7 @@ docker build -t student-feedback-system:latest .
 docker run -d --name student-feedback-container -p 5000:5000 student-feedback-system:latest
 ```
 
-Open: http://localhost:5000
+Open: http://127.0.0.1:5000
 
 ## 3) Deploy with Ansible
 
@@ -85,9 +85,9 @@ This playbook:
 - Stops old container
 - Runs new container on port 5000
 
-## 4) Jenkins Pipeline Setup (Local)
+## 4) Jenkins Pipeline Setup
 
-1. Start Jenkins locally.
+1. Start Jenkins.
 2. Create a Pipeline job.
 3. Connect your GitHub repository.
 4. Set Script Path to Jenkinsfile.
@@ -110,8 +110,8 @@ End-to-end flow:
 2. GitHub webhook triggers Jenkins.
 3. Jenkins checks out latest code and builds Docker image.
 4. Jenkins runs deployment steps (directly or by calling Ansible).
-5. Ansible rebuilds/redeploys the container on localhost.
-6. Updated app is available at http://localhost:5000
+5. Ansible rebuilds/redeploys the container.
+6. Updated app is available at http://127.0.0.1:5000
 
 ## 6) Make It Ready to Push to GitHub
 
@@ -120,7 +120,7 @@ From project root:
 ```powershell
 git init
 git add .
-git commit -m "Initial commit: Student Feedback System with local CI/CD"
+git commit -m "Initial commit: Student Feedback System with CI/CD"
 git branch -M main
 git remote add origin https://github.com/<your-username>/student-feedback-system.git
 git push -u origin main

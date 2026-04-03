@@ -1,5 +1,5 @@
 # inventory
-# Localhost inventory for local deployment.
+# Inventory for deployment target.
 
-[local]
-localhost ansible_connection=local
+[pipeline_target]
+127.0.0.1 ansible_connection=local

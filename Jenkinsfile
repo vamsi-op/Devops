@@ -1,5 +1,5 @@
 // Jenkinsfile
-// Local CI/CD pipeline:
+// CI/CD pipeline:
 // 1) Clone/checkout code from Git
 // 2) Build Docker image
 // 3) Deploy via Ansible playbook (default)
@@ -79,10 +79,10 @@ pipeline {
                 script {
                     if (isUnix()) {
                         sh 'sleep 5'
-                        sh 'curl -f http://localhost:5000/'
+                        sh 'curl -f http://127.0.0.1:5000/'
                     } else {
                         bat 'timeout /t 5 /nobreak > NUL'
-                        bat 'curl -f http://localhost:5000/'
+                        bat 'curl -f http://127.0.0.1:5000/'
                     }
                 }
             }
@@ -91,7 +91,7 @@ pipeline {
 
     post {
         always {
-            echo 'Pipeline finished. App should be available at http://localhost:5000'
+            echo 'Pipeline finished. App should be available at http://127.0.0.1:5000'
         }
     }
 }
