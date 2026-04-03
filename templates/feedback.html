@@ -1,0 +1,35 @@
+<!-- feedback.html -->
+<!-- Page to display all feedback entries -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Feedback</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>All Student Feedback</h1>
+    <p class="subtitle">Latest entries are shown first.</p>
+
+    <div class="actions">
+      <a class="link-button" href="{{ url_for('index') }}">Back to Form</a>
+    </div>
+
+    {% if feedback_entries %}
+      <ul class="feedback-list">
+        {% for entry in feedback_entries %}
+          <li>
+            <strong>{{ entry.name }}</strong>
+            <p>{{ entry.message }}</p>
+            <small>{{ entry.created_at }}</small>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No feedback entries available.</p>
+    {% endif %}
+  </div>
+</body>
+</html>

@@ -1,0 +1,4 @@
+# requirements.txt
+# Python dependencies for the Flask feedback app.
+
+Flask==3.0.3

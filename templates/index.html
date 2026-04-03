@@ -1,0 +1,49 @@
+<!-- index.html -->
+<!-- Home page: feedback form + recent submissions -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Feedback System</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>Student Feedback System</h1>
+    <p class="subtitle">Share your feedback in a few seconds.</p>
+
+    <!-- Feedback form posts data to /submit -->
+    <form action="{{ url_for('submit_feedback') }}" method="post" class="feedback-form">
+      <label for="name">Your Name</label>
+      <input id="name" name="name" type="text" placeholder="Enter your name" required>
+
+      <label for="message">Feedback</label>
+      <textarea id="message" name="message" rows="5" placeholder="Write your feedback here..." required></textarea>
+
+      <button type="submit">Submit Feedback</button>
+    </form>
+
+    <div class="actions">
+      <a class="link-button" href="{{ url_for('feedback') }}">View All Feedback</a>
+    </div>
+
+    <section class="recent-section">
+      <h2>Recent Feedback</h2>
+      {% if recent_feedback %}
+        <ul class="feedback-list">
+          {% for entry in recent_feedback %}
+            <li>
+              <strong>{{ entry.name }}</strong>
+              <p>{{ entry.message }}</p>
+              <small>{{ entry.created_at }}</small>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>No feedback yet. Be the first to submit one.</p>
+      {% endif %}
+    </section>
+  </div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+---
+# deploy.yml
+# Local deployment flow:
+# 1) Ensure Docker is available
+# 2) Build Docker image from current source
+# 3) Stop/remove old container
+# 4) Run new container on localhost:5000
+
+- name: Deploy Student Feedback System locally with Docker
+  hosts: local
+  become: true
+  vars:
+    image_name: student-feedback-system:latest
+    container_name: student-feedback-container
+    project_dir: "{{ playbook_dir }}/.."
+
+  tasks:
+    - name: Check if Docker is installed
+      command: docker --version
+      register: docker_version
+      changed_when: false
+      failed_when: docker_version.rc != 0
+
+    - name: Show Docker version
+      debug:
+        var: docker_version.stdout
+
+    - name: Build Docker image from local project
+      command: docker build -t {{ image_name }} {{ project_dir }}
+      register: build_output
+      changed_when: "'Successfully built' in build_output.stdout or 'writing image sha256' in build_output.stdout"
+
+    - name: Stop old container if running
+      command: docker rm -f {{ container_name }}
+      register: remove_result
+      failed_when: false
+      changed_when: remove_result.rc == 0
+
+    - name: Run new container
+      command: docker run -d --name {{ container_name }} -p 5000:5000 {{ image_name }}
+      register: run_output
+      changed_when: run_output.rc == 0
+
+    - name: Show container id
+      debug:
+        var: run_output.stdout

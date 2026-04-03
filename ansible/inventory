@@ -1,0 +1,5 @@
+# inventory
+# Localhost inventory for local deployment.
+
+[local]
+localhost ansible_connection=local
